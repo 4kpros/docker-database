@@ -23,28 +23,28 @@ This project provides a convenient way to start various database containers (Pos
 
 3. **Build and run: Use the provided Makefile to build and run the containers:**
 
-    # To Start all the services
+    - To Start all the services
         ```bash
         make all
 
-    # To Start a specific service (replace <service> with the service name)
+    - To Start a specific service (replace <service> with the service name: `postgres mongodb sqlserver redis memcached etcd`)
         ```bash
         make <service>
 
     Example:
         ```bash
-        make postgres # postgres mongodb sqlserver redis memcached etcd
+        make postgres
 
 4. **To stop and remove the containers:**
 
-    *To Stop all the services*
+    - To Stop all the services
         ```bash
         make stop-all
 
-    *To Stop a specific service (replace <service> with the service name)*
+    - To Stop a specific service (replace `<service>` with the service name: `postgres mongodb sqlserver redis memcached etcd`)
         ```bash
         make stop-<service>
 
-    *Example:*
+    - Example:
         ```bash
-        make stop-postgres # postgres mongodb sqlserver redis memcached etcd
+        make stop-postgres
