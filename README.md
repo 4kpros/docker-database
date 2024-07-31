@@ -37,14 +37,14 @@ This project provides a convenient way to start various database containers (Pos
 
 4. **To stop and remove the containers:**
 
-    # To Stop all the services
+    *To Stop all the services*
         ```bash
         make stop-all
 
-    # To Stop a specific service (replace <service> with the service name)
+    *To Stop a specific service (replace <service> with the service name)*
         ```bash
         make stop-<service>
 
-    Example:
+    *Example:*
         ```bash
         make stop-postgres # postgres mongodb sqlserver redis memcached etcd
