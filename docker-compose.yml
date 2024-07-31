@@ -1,7 +1,15 @@
 services:
+
+  certs-generator:
+    container_name: certs-generator
+    build: 
+      context: ./conf/certs
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./generated/certs:/certs/generated
   postgres:
     container_name: postgres
-    image: postgres:latest-alpine
+    image: postgres:alpine
     restart: always
     env_file: ".env"
     environment:
@@ -12,11 +20,12 @@ services:
     ports:
       - ${POSTGRES_PORT:-5432}:5432
     volumes:
-      - ./data/postgres_data:/var/lib/postgresql/data
+      - ./conf/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./generated/data/postgres_data:/var/lib/postgresql/data
 
   mongodb:
     container_name: mongodb
-    image: mongo:latest-alpine
+    image: mongo:latest
     restart: always
     env_file: ".env"
     environment:
@@ -24,9 +33,10 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
       MONGO_INITDB_DATABASE: ${MONGODB_DATABASE}
     ports:
-      - ${MONGODB_PORT:-27017}:27017
+      - ${MONGODB_PORT:-2701}:2701
     volumes:
-      - ./data/mongodb_data:/data/db
+      - ./conf/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./generated/data/mongodb_data:/data/db
 
   sqlserver:
     container_name: sqlserver
@@ -41,7 +51,7 @@ services:
     ports:
       - ${SQLSERVER_PORT:-1433}:1433
     volumes:
-      - ./data/sqlserver_data:/var/opt/mssql/data
+      - ./generated/data/sqlserver_data:/var/opt/mssql/data
 
   redis:
     container_name: redis
@@ -53,7 +63,7 @@ services:
     ports:
       - ${REDIS_PORT:-6379}:6379
     volumes:
-      - ./data/redis_data:/data
+      - ./generated/data/redis_data:/data
     command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
     healthcheck:
       test: ["CMD-SHELL", "redis-cli ping"]
@@ -117,14 +127,6 @@ services:
       timeout: 5s
       retries: 3
 
-  certs-generator:
-    container_name: certs-generator
-    build: 
-      context: ./conf/certs
-      dockerfile: ./../../Dockerfile
-    volumes:
-      - ./conf/certs:/certs
-
   etcd:
     container_name: etcd
     image: bitnami/etcd:latest
@@ -147,8 +149,8 @@ services:
       - ${ETCD_INITIAL_PORT:-2379}:2379
       - ${ETCD_LISTEN_PORT:-2380}:2380
     volumes:
-      - ./data/etcd_data:/var/lib/etcd
-      - ./conf/certs/generated:/etc/etcd/ssl
+      - ./generated/data/etcd_data:/var/lib/etcd
+      - ./generated/certs:/etc/etcd/ssl
     command: etcd
     healthcheck:
       test: ["CMD", "etcdctl", "member", "list"]

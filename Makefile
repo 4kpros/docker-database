@@ -1,4 +1,4 @@
-.PHONY: certs postgres mongo sqlserver redis memcached etcd all
+.PHONY: certs postgres mongodb sqlserver redis memcached etcd all
 
 certs:
 	@docker-compose up --build --no-deps -d certs-generator
@@ -6,8 +6,8 @@ certs:
 postgres:
 	@docker-compose up --build --no-deps -d postgres
 
-mongo:
-	@docker-compose up --build --no-deps -d mongo
+mongodb:
+	@docker-compose up --build --no-deps -d mongodb
 
 sqlserver:
 	@docker-compose up --build --no-deps -d sqlserver
