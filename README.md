@@ -51,4 +51,4 @@ This project provides a convenient way to start various database containers (Pos
 
 5. **Generated data**
 
-    Data for every service are generated into folder `generate/data/`
+    Data for each service is generated into the folder `generate/data/`
