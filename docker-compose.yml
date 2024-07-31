@@ -7,6 +7,7 @@ services:
       dockerfile: ./Dockerfile
     volumes:
       - ./generated/certs:/certs/generated
+
   postgres:
     container_name: postgres
     image: postgres:alpine
