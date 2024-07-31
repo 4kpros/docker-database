@@ -1,4 +1,6 @@
-.PHONY: certs postgres mongodb sqlserver redis memcached etcd all
+.PHONY: certs \
+	postgres mongodb sqlserver redis memcached etcd all \
+	stop-postgres stop-mongodb stop-sqlserver stop-redis stop-memcached stop-etcd stop-all
 
 certs:
 	@docker-compose up --build --no-deps -d certs-generator
@@ -27,8 +29,38 @@ etcd:
 
 all:
 	@make postgres
-	@make mongo
+	@make mongodb
 	@make sqlserver
 	@make redis
 	@make memcached
 	@make etcd
+
+stop-postgres:
+	@docker stop postgres
+
+stop-mongodb:
+	@docker stop mongodb
+
+stop-sqlserver:
+	@docker stop sqlserver
+
+stop-redis:
+	@docker stop redis
+
+stop-memcached:
+	@docker stop memcached1
+	@docker stop memcached2
+	@docker stop memcached3
+	@docker stop memcached4
+	@docker stop memcached5
+
+stop-etcd:
+	@docker stop etcd
+
+stop-all:
+	@make stop-postgres
+	@make stop-mongodb
+	@make stop-sqlserver
+	@make stop-redis
+	@make stop-memcached
+	@make stop-etcd
