@@ -13,6 +13,10 @@ This project provides a convenient way to start various database containers (Pos
 
 **Getting Started**
 
+**Prerequisites:** Docker and Make must be installed on your system.
+
+**Installation:**
+
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/4kpros/docker-database.git
