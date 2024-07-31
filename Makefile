@@ -25,6 +25,7 @@ memcached:
 	@docker-compose up --build --no-deps -d memcached5
 
 etcd:
+	@docker certs
 	@docker-compose up --build --no-deps -d etcd
 
 all:

@@ -48,3 +48,7 @@ This project provides a convenient way to start various database containers (Pos
     - To Stop all the services
         ```bash
         make stop-all
+
+5. **Generated data**
+
+    Data for every service are generated into folder `generate/data/`
