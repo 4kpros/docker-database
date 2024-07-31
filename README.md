@@ -27,7 +27,7 @@ This project provides a convenient way to start various database containers (Pos
         ```bash
         make all
 
-    - To Start a specific service (replace <service> with the service name: `postgres mongodb sqlserver redis memcached etcd`)
+    - To Start a specific service (replace <service> with the service name: `postgres` `mongodb` `sqlserver` `redis` `memcached` `etcd`)
         ```bash
         make <service>
 
@@ -41,7 +41,7 @@ This project provides a convenient way to start various database containers (Pos
         ```bash
         make stop-all
 
-    - To Stop a specific service (replace `<service>` with the service name: `postgres mongodb sqlserver redis memcached etcd`)
+    - To Stop a specific service (replace `<service>` with the service name: `postgres` `mongodb` `sqlserver` `redis` `memcached` `etcd`)
         ```bash
         make stop-<service>
 
