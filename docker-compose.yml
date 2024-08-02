@@ -7,6 +7,8 @@ services:
       dockerfile: ./Dockerfile
     volumes:
       - ./generated/certs:/certs/generated
+    networks:
+      - internal
 
   postgres:
     container_name: postgres
@@ -23,6 +25,8 @@ services:
     volumes:
       - ./conf/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./generated/data/postgres_data:/var/lib/postgresql/data
+    networks:
+      - internal
 
   mongodb:
     container_name: mongodb
@@ -38,6 +42,8 @@ services:
     volumes:
       - ./conf/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./generated/data/mongodb_data:/data/db
+    networks:
+      - internal
 
   sqlserver:
     container_name: sqlserver
@@ -53,6 +59,8 @@ services:
       - ${SQLSERVER_PORT:-1433}:1433
     volumes:
       - ./generated/data/sqlserver_data:/var/opt/mssql/data
+    networks:
+      - internal
 
   redis:
     container_name: redis
@@ -66,6 +74,8 @@ services:
     volumes:
       - ./generated/data/redis_data:/data
     command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
+    networks:
+      - internal
     healthcheck:
       test: ["CMD-SHELL", "redis-cli ping"]
       interval: 10s
@@ -78,6 +88,8 @@ services:
     restart: always
     ports:
       - ${MEMCACHED_PORT1:-11211}:11211
+    networks:
+      - internal
     healthcheck:
       test: ["CMD-SHELL", "nc -zv localhost 11211"]
       interval: 10s
@@ -89,6 +101,8 @@ services:
     restart: always
     ports:
       - ${MEMCACHED_PORT2:-11212}:11211
+    networks:
+      - internal
     healthcheck:
       test: ["CMD-SHELL", "nc -zv localhost 11211"]
       interval: 10s
@@ -100,6 +114,8 @@ services:
     restart: always
     ports:
       - ${MEMCACHED_PORT3:-11213}:11211
+    networks:
+      - internal
     healthcheck:
       test: ["CMD-SHELL", "nc -zv localhost 11211"]
       interval: 10s
@@ -111,6 +127,8 @@ services:
     restart: always
     ports:
       - ${MEMCACHED_PORT4:-11214}:11211
+    networks:
+      - internal
     healthcheck:
       test: ["CMD-SHELL", "nc -zv localhost 11211"]
       interval: 10s
@@ -122,6 +140,8 @@ services:
     restart: always
     ports:
       - ${MEMCACHED_PORT5:-11215}:11211
+    networks:
+      - internal
     healthcheck:
       test: ["CMD-SHELL", "nc -zv localhost 11211"]
       interval: 10s
@@ -153,8 +173,13 @@ services:
       - ./generated/data/etcd_data:/var/lib/etcd
       - ./generated/certs:/etc/etcd/ssl
     command: etcd
+    networks:
+      - internal
     healthcheck:
       test: ["CMD", "etcdctl", "member", "list"]
       interval: 10s
       timeout: 5s
       retries: 3
+
+networks:
+    internal:
