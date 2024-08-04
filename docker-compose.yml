@@ -49,6 +49,7 @@ services:
     container_name: sqlserver
     image: mcr.microsoft.com/mssql/server
     restart: always
+    env_file: ".env"
     environment:
       MSSQL_SA_USER: ${SQLSERVER_USERNAME}
       SA_PASSWORD: ${SQLSERVER_PASSWORD}
@@ -66,6 +67,7 @@ services:
     container_name: redis
     image: redis:alpine
     restart: always
+    env_file: ".env"
     environment:
       REDIS_PASSWORD: ${REDIS_PASSWORD}
       REDIS_SAVE: ${REDIS_SAVE_IN_SECONDS}
@@ -86,6 +88,7 @@ services:
     container_name: memcached1
     image: memcached:alpine
     restart: always
+    env_file: ".env"
     ports:
       - ${MEMCACHED_PORT1:-11211}:11211
     networks:
@@ -99,6 +102,7 @@ services:
     container_name: memcached2
     image: memcached:alpine
     restart: always
+    env_file: ".env"
     ports:
       - ${MEMCACHED_PORT2:-11212}:11211
     networks:
@@ -112,6 +116,7 @@ services:
     container_name: memcached3
     image: memcached:alpine
     restart: always
+    env_file: ".env"
     ports:
       - ${MEMCACHED_PORT3:-11213}:11211
     networks:
@@ -125,6 +130,7 @@ services:
     container_name: memcached4
     image: memcached:alpine
     restart: always
+    env_file: ".env"
     ports:
       - ${MEMCACHED_PORT4:-11214}:11211
     networks:
@@ -138,6 +144,7 @@ services:
     container_name: memcached5
     image: memcached:alpine
     restart: always
+    env_file: ".env"
     ports:
       - ${MEMCACHED_PORT5:-11215}:11211
     networks:
@@ -152,6 +159,7 @@ services:
     container_name: etcd
     image: bitnami/etcd:latest
     restart: always
+    env_file: ".env"
     environment:
       ETCD_NAME: etcd
       ETCD_DATA_DIR: /var/lib/etcd
